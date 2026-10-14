@@ -3,134 +3,100 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gestion Stock General Affairs</title>
+
+<title>GA STOCK MANAGEMENT</title>
 
 <style>
 
-*{
-    box-sizing:border-box;
-}
-
 body{
-    font-family:Arial,sans-serif;
-    margin:0;
-    background:#f4f4f4;
-}
-
-/* LOGIN */
-
-#loginPage{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    background:#d60000;
-}
-
-.login-box{
-    background:white;
-    padding:30px;
-    width:400px;
-    border-radius:10px;
-    text-align:center;
-    box-shadow:0 0 15px rgba(0,0,0,0.3);
-}
-
-.login-box img{
-    max-width:250px;
-    margin-bottom:20px;
-}
-
-.login-box input{
-    width:100%;
-    padding:12px;
-    margin:8px 0;
-}
-
-.login-box button{
-    width:100%;
-    padding:12px;
-    background:#d60000;
-    color:white;
-    border:none;
-    cursor:pointer;
+font-family:Arial,sans-serif;
+background:#f5f5f5;
+margin:0;
 }
 
 header{
-    background:white;
-    padding:15px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    border-bottom:4px solid #d60000;
-}
-
-header img{
-    height:60px;
-}
-
-.user-info{
-    font-weight:bold;
-    color:#d60000;
+background:#c00000;
+color:white;
+padding:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
 .container{
-    padding:20px;
+padding:20px;
 }
 
 .card{
-    background:white;
-    padding:20px;
-    margin-bottom:20px;
-    border-radius:10px;
-    box-shadow:0 0 10px rgba(0,0,0,.1);
-}
-
-input,select{
-    width:100%;
-    padding:10px;
-    margin-top:5px;
-    margin-bottom:10px;
-}
-
-button{
-    background:#d60000;
-    color:white;
-    border:none;
-    padding:10px 15px;
-    cursor:pointer;
-    border-radius:5px;
-}
-
-button:hover{
-    background:#b00000;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-th{
-    background:#d60000;
-    color:white;
-    padding:10px;
-}
-
-td{
-    border:1px solid #ddd;
-    padding:8px;
-    text-align:center;
-}
-
-.stocklow{
-    background:#ffe5e5;
-    color:red;
-    font-weight:bold;
+background:white;
+padding:20px;
+margin-bottom:20px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
 
 h2{
-    color:#d60000;
+color:#c00000;
+margin-top:0;
+}
+
+input,select{
+width:100%;
+padding:10px;
+margin-top:5px;
+margin-bottom:10px;
+}
+
+button{
+background:#c00000;
+color:white;
+border:none;
+padding:10px;
+cursor:pointer;
+border-radius:5px;
+}
+
+button:hover{
+background:#900000;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th{
+background:#c00000;
+color:white;
+padding:10px;
+}
+
+td{
+border:1px solid #ddd;
+padding:8px;
+text-align:center;
+}
+
+#loginPage{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#c00000;
+}
+
+.login-box{
+background:white;
+padding:30px;
+border-radius:10px;
+width:350px;
+text-align:center;
+}
+
+.stockLow{
+background:#ffe5e5;
+color:red;
+font-weight:bold;
 }
 
 </style>
@@ -138,15 +104,11 @@ h2{
 
 <body>
 
-<!-- PAGE DE CONNEXION -->
-
 <div id="loginPage">
 
 <div class="login-box">
 
-https://upload.wikimedia.org/wikipedia/commons/4/47/Yazaki_logo.svg
-
-<h2>Gestion Stock GA</h2>
+<h2>GENERAL AFFAIRS STOCK</h2>
 
 <input type="text"
 id="username"
@@ -160,35 +122,40 @@ placeholder="Mot de passe">
 Connexion
 </button>
 
-</div>
+<br><br>
+
+<b>Utilisateurs autorisés</b>
+
+<p>
+Idder<br>
+med frakech<br>
+chlih<br>
+med belfqih
+</p>
 
 </div>
 
-<!-- APPLICATION -->
+</div>
 
 <div id="app" style="display:none;">
 
 <header>
 
-https://upload.wikimedia.org/wikipedia/commons/4/47/Yazaki_logo.svg
+<h1>Gestion Stock General Affairs</h1>
 
-<div class="user-info">
-Utilisateur : GA2026
-</div>
+<div id="userConnected"></div>
 
 </header>
 
 <div class="container">
 
-<!-- ENTREE -->
-
 <div class="card">
 
-<h2>Entrée de Stock</h2>
+<h2>Entrée Stock</h2>
 
 <label>Article</label>
 
-<select id="article" onchange="afficherTaille()">
+<select id="article" onchange="controlTaille()">
 <option>Blouse</option>
 <option>Badge</option>
 <option>Casier</option>
@@ -196,11 +163,12 @@ Utilisateur : GA2026
 <option>Autres</option>
 </select>
 
-<div id="divTaille">
+<div id="tailleDiv">
 
 <label>Taille</label>
 
 <select id="taille">
+
 <option>XS</option>
 <option>S</option>
 <option>M</option>
@@ -210,6 +178,7 @@ Utilisateur : GA2026
 <option>3XL</option>
 <option>4XL</option>
 <option>5XL</option>
+
 </select>
 
 </div>
@@ -221,16 +190,14 @@ Utilisateur : GA2026
 <input type="text" id="responsable">
 
 <button onclick="ajouterStock()">
-Ajouter Stock
+Ajouter
 </button>
 
 </div>
 
-<!-- SORTIE -->
-
 <div class="card">
 
-<h2>Sortie de Stock</h2>
+<h2>Sortie Stock</h2>
 
 <label>Article</label>
 <select id="sortieArticle"></select>
@@ -241,16 +208,20 @@ Ajouter Stock
 <label>Responsable</label>
 <input type="text" id="sortieResp">
 
-<label>Motif de sortie</label>
-<input type="text" id="motif">
+<label>Motif</label>
+
+<select id="motif">
+<option>Distribution officielle</option>
+<option>Change</option>
+<option>Perte</option>
+<option>Endommagement</option>
+</select>
 
 <button onclick="sortieStock()">
-Enregistrer Sortie
+Valider Sortie
 </button>
 
 </div>
-
-<!-- STOCK -->
 
 <div class="card">
 
@@ -259,44 +230,51 @@ Enregistrer Sortie
 <table>
 
 <thead>
+
 <tr>
 <th>Article</th>
 <th>Taille</th>
 <th>Entrées</th>
 <th>Sorties</th>
-<th>Stock Restant</th>
+<th>Stock</th>
 </tr>
+
 </thead>
 
-<tbody id="tableStock">
-</tbody>
+<tbody id="tableStock"></tbody>
 
 </table>
 
 </div>
 
-<!-- HISTORIQUE -->
-
 <div class="card">
 
-<h2>Historique des Mouvements</h2>
+<h2>Historique</h2>
+
+<button onclick="viderHistorique()">
+Supprimer tout l'historique
+</button>
+
+<br><br>
 
 <table>
 
 <thead>
+
 <tr>
-<th>Date et Heure</th>
+<th>Date Heure</th>
 <th>Type</th>
 <th>Article</th>
 <th>Taille</th>
 <th>Qté</th>
 <th>Responsable</th>
 <th>Motif</th>
+<th>Action</th>
 </tr>
+
 </thead>
 
-<tbody id="historique">
-</tbody>
+<tbody id="historique"></tbody>
 
 </table>
 
@@ -308,94 +286,111 @@ Enregistrer Sortie
 
 <script>
 
-const IDENTIFIANT = "GA2026";
-const MOTDEPASSE = "GA2026";
+const utilisateurs = {
+"idder":"GA2026",
+"med frakech":"GA2026",
+"chlih":"GA2026",
+"med belfqih":"GA2026"
+};
 
 function login(){
 
-let user=document.getElementById("username").value;
-let pass=document.getElementById("password").value;
+let user =
+document.getElementById("username").value.toLowerCase();
 
-if(user===IDENTIFIANT && pass===MOTDEPASSE){
+let pass =
+document.getElementById("password").value;
+
+if(utilisateurs[user] &&
+utilisateurs[user]===pass){
 
 document.getElementById("loginPage").style.display="none";
 document.getElementById("app").style.display="block";
 
-}else{
+document.getElementById("userConnected").innerHTML=
+"Connecté : "+user;
 
-alert("Identifiant ou mot de passe incorrect");
+}
+else{
+
+alert("Accès refusé");
 
 }
 
 }
 
-/* STOCK */
+let stock =
+JSON.parse(localStorage.getItem("stockGA")) || [];
 
-let stock=
-JSON.parse(localStorage.getItem("stockGA"))||[];
+let historique =
+JSON.parse(localStorage.getItem("historiqueGA")) || [];
 
-let historique=
-JSON.parse(localStorage.getItem("historiqueGA"))||[];
-
-function sauvegarder(){
+function save(){
 
 localStorage.setItem(
 "stockGA",
-JSON.stringify(stock));
+JSON.stringify(stock)
+);
 
 localStorage.setItem(
 "historiqueGA",
-JSON.stringify(historique));
+JSON.stringify(historique)
+);
 
 }
 
-function afficherTaille(){
+function controlTaille(){
 
-let article=
+let article =
 document.getElementById("article").value;
 
-document.getElementById("divTaille").style.display=
-(article==="Blouse") ? "block" : "none";
+document.getElementById("tailleDiv")
+.style.display =
+(article==="Blouse")
+? "block"
+: "none";
 
 }
 
 function ajouterStock(){
 
-let article=
+let article =
 document.getElementById("article").value;
 
-let taille=
-(article==="Blouse")
+let taille =
+article==="Blouse"
 ?
 document.getElementById("taille").value
 :
 "-";
 
-let qte=
+let qte =
 parseInt(document.getElementById("qte").value);
 
-let responsable=
+let resp =
 document.getElementById("responsable").value;
 
 if(!qte || qte<=0){
+
 alert("Quantité invalide");
 return;
+
 }
 
-let index=
-stock.findIndex(x =>
-x.article===article &&
-x.taille===taille);
+let idx = stock.findIndex(
+x=>x.article===article &&
+x.taille===taille
+);
 
-if(index>=0){
+if(idx>=0){
 
-stock[index].entree+=qte;
+stock[idx].entree += qte;
 
 }else{
 
 stock.push({
-article:article,
-taille:taille,
+article,
+taille,
 entree:qte,
 sortie:0
 });
@@ -408,45 +403,42 @@ date:new Date().toLocaleString(),
 
 type:"ENTREE",
 
-article:article,
+article,
 
-taille:taille,
+taille,
 
-qte:qte,
+qte,
 
-responsable:responsable,
+responsable:resp,
 
 motif:"-"
 
 });
 
-sauvegarder();
-afficher();
+save();
+refresh();
 
 }
 
 function sortieStock(){
 
-let selection=
+let valeur =
 document.getElementById("sortieArticle").value;
 
-let index=
-stock.findIndex(x =>
-x.article+"|"+x.taille===selection);
+let idx =
+stock.findIndex(
+x=>x.article+"|"+x.taille===valeur
+);
 
-if(index<0) return;
+if(idx<0) return;
 
-let qte=
-parseInt(document.getElementById("sortieQte").value);
+let qte =
+parseInt(
+document.getElementById("sortieQte").value
+);
 
-let responsable=
-document.getElementById("sortieResp").value;
-
-let motif=
-document.getElementById("motif").value;
-
-let disponible=
-stock[index].entree-stock[index].sortie;
+let disponible =
+stock[idx].entree-stock[idx].sortie;
 
 if(qte>disponible){
 
@@ -455,7 +447,7 @@ return;
 
 }
 
-stock[index].sortie+=qte;
+stock[idx].sortie += qte;
 
 historique.unshift({
 
@@ -463,46 +455,78 @@ date:new Date().toLocaleString(),
 
 type:"SORTIE",
 
-article:stock[index].article,
+article:stock[idx].article,
 
-taille:stock[index].taille,
+taille:stock[idx].taille,
 
 qte:qte,
 
-responsable:responsable,
+responsable:
+document.getElementById("sortieResp").value,
 
-motif:motif
+motif:
+document.getElementById("motif").value
 
 });
 
-sauvegarder();
-afficher();
+save();
+refresh();
 
 }
 
-function afficher(){
+function supprimerHistorique(index){
 
-let html="";
+if(confirm("Supprimer ce mouvement ?")){
+
+historique.splice(index,1);
+
+save();
+
+refresh();
+
+}
+
+}
+
+function viderHistorique(){
+
+if(confirm("Supprimer tout l'historique ?")){
+
+historique=[];
+
+save();
+
+refresh();
+
+}
+
+}
+
+function refresh(){
+
+let stockHtml="";
 let options="";
 
 stock.forEach(item=>{
 
-let restant=
+let restant =
 item.entree-item.sortie;
 
-html+=`
+stockHtml += `
 
-<tr class="${restant<5 ? "stocklow" : ""}">
+<tr class="${restant<5?'stockLow':''}">
+
 <td>${item.article}</td>
 <td>${item.taille}</td>
 <td>${item.entree}</td>
 <td>${item.sortie}</td>
 <td>${restant}</td>
+
 </tr>
 
 `;
 
-options+=`
+options += `
 
 <option value="${item.article}|${item.taille}">
 ${item.article} (${item.taille})
@@ -512,35 +536,47 @@ ${item.article} (${item.taille})
 
 });
 
-document.getElementById("tableStock").innerHTML=html;
+document.getElementById("tableStock").innerHTML=stockHtml;
+
 document.getElementById("sortieArticle").innerHTML=options;
 
-let h="";
+let histHtml="";
 
-historique.forEach(item=>{
+historique.forEach((h,index)=>{
 
-h+=`
+histHtml += `
 
 <tr>
-<td>${item.date}</td>
-<td>${item.type}</td>
-<td>${item.article}</td>
-<td>${item.taille}</td>
-<td>${item.qte}</td>
-<td>${item.responsable}</td>
-<td>${item.motif}</td>
+
+<td>${h.date}</td>
+<td>${h.type}</td>
+<td>${h.article}</td>
+<td>${h.taille}</td>
+<td>${h.qte}</td>
+<td>${h.responsable}</td>
+<td>${h.motif}</td>
+
+<td>
+
+<button
+onclick="supprimerHistorique(${index})">
+Supprimer
+</button>
+
+</td>
+
 </tr>
 
 `;
 
 });
 
-document.getElementById("historique").innerHTML=h;
+document.getElementById("historique").innerHTML=histHtml;
 
 }
 
-afficher();
-afficherTaille();
+refresh();
+controlTaille();
 
 </script>
 
