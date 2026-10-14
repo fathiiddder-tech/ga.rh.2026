@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestion Stock General Affairs</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    margin:0;
+    background:#f4f4f4;
+}
+
+/* LOGIN */
+
+#loginPage{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    background:#d60000;
+}
+
+.login-box{
+    background:white;
+    padding:30px;
+    width:400px;
+    border-radius:10px;
+    text-align:center;
+    box-shadow:0 0 15px rgba(0,0,0,0.3);
+}
+
+.login-box img{
+    max-width:250px;
+    margin-bottom:20px;
+}
+
+.login-box input{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+}
+
+.login-box button{
+    width:100%;
+    padding:12px;
+    background:#d60000;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+header{
+    background:white;
+    padding:15px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:4px solid #d60000;
+}
+
+header img{
+    height:60px;
+}
+
+.user-info{
+    font-weight:bold;
+    color:#d60000;
+}
+
+.container{
+    padding:20px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,.1);
+}
+
+input,select{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    margin-bottom:10px;
+}
+
+button{
+    background:#d60000;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    cursor:pointer;
+    border-radius:5px;
+}
+
+button:hover{
+    background:#b00000;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#d60000;
+    color:white;
+    padding:10px;
+}
+
+td{
+    border:1px solid #ddd;
+    padding:8px;
+    text-align:center;
+}
+
+.stocklow{
+    background:#ffe5e5;
+    color:red;
+    font-weight:bold;
+}
+
+h2{
+    color:#d60000;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- PAGE DE CONNEXION -->
+
+<div id="loginPage">
+
+<div class="login-box">
+
+https://upload.wikimedia.org/wikipedia/commons/4/47/Yazaki_logo.svg
+
+<h2>Gestion Stock GA</h2>
+
+<input type="text"
+id="username"
+placeholder="Identifiant">
+
+<input type="password"
+id="password"
+placeholder="Mot de passe">
+
+<button onclick="login()">
+Connexion
+</button>
+
+</div>
+
+</div>
+
+<!-- APPLICATION -->
+
+<div id="app" style="display:none;">
+
+<header>
+
+https://upload.wikimedia.org/wikipedia/commons/4/47/Yazaki_logo.svg
+
+<div class="user-info">
+Utilisateur : GA2026
+</div>
+
+</header>
+
+<div class="container">
+
+<!-- ENTREE -->
+
+<div class="card">
+
+<h2>Entrée de Stock</h2>
+
+<label>Article</label>
+
+<select id="article" onchange="afficherTaille()">
+<option>Blouse</option>
+<option>Badge</option>
+<option>Casier</option>
+<option>Micro-onde</option>
+<option>Autres</option>
+</select>
+
+<div id="divTaille">
+
+<label>Taille</label>
+
+<select id="taille">
+<option>XS</option>
+<option>S</option>
+<option>M</option>
+<option>L</option>
+<option>XL</option>
+<option>XXL</option>
+<option>3XL</option>
+<option>4XL</option>
+<option>5XL</option>
+</select>
+
+</div>
+
+<label>Quantité</label>
+<input type="number" id="qte">
+
+<label>Responsable</label>
+<input type="text" id="responsable">
+
+<button onclick="ajouterStock()">
+Ajouter Stock
+</button>
+
+</div>
+
+<!-- SORTIE -->
+
+<div class="card">
+
+<h2>Sortie de Stock</h2>
+
+<label>Article</label>
+<select id="sortieArticle"></select>
+
+<label>Quantité</label>
+<input type="number" id="sortieQte">
+
+<label>Responsable</label>
+<input type="text" id="sortieResp">
+
+<label>Motif de sortie</label>
+<input type="text" id="motif">
+
+<button onclick="sortieStock()">
+Enregistrer Sortie
+</button>
+
+</div>
+
+<!-- STOCK -->
+
+<div class="card">
+
+<h2>Stock Disponible</h2>
+
+<table>
+
+<thead>
+<tr>
+<th>Article</th>
+<th>Taille</th>
+<th>Entrées</th>
+<th>Sorties</th>
+<th>Stock Restant</th>
+</tr>
+</thead>
+
+<tbody id="tableStock">
+</tbody>
+
+</table>
+
+</div>
+
+<!-- HISTORIQUE -->
+
+<div class="card">
+
+<h2>Historique des Mouvements</h2>
+
+<table>
+
+<thead>
+<tr>
+<th>Date et Heure</th>
+<th>Type</th>
+<th>Article</th>
+<th>Taille</th>
+<th>Qté</th>
+<th>Responsable</th>
+<th>Motif</th>
+</tr>
+</thead>
+
+<tbody id="historique">
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const IDENTIFIANT = "GA2026";
+const MOTDEPASSE = "GA2026";
+
+function login(){
+
+let user=document.getElementById("username").value;
+let pass=document.getElementById("password").value;
+
+if(user===IDENTIFIANT && pass===MOTDEPASSE){
+
+document.getElementById("loginPage").style.display="none";
+document.getElementById("app").style.display="block";
+
+}else{
+
+alert("Identifiant ou mot de passe incorrect");
+
+}
+
+}
+
+/* STOCK */
+
+let stock=
+JSON.parse(localStorage.getItem("stockGA"))||[];
+
+let historique=
+JSON.parse(localStorage.getItem("historiqueGA"))||[];
+
+function sauvegarder(){
+
+localStorage.setItem(
+"stockGA",
+JSON.stringify(stock));
+
+localStorage.setItem(
+"historiqueGA",
+JSON.stringify(historique));
+
+}
+
+function afficherTaille(){
+
+let article=
+document.getElementById("article").value;
+
+document.getElementById("divTaille").style.display=
+(article==="Blouse") ? "block" : "none";
+
+}
+
+function ajouterStock(){
+
+let article=
+document.getElementById("article").value;
+
+let taille=
+(article==="Blouse")
+?
+document.getElementById("taille").value
+:
+"-";
+
+let qte=
+parseInt(document.getElementById("qte").value);
+
+let responsable=
+document.getElementById("responsable").value;
+
+if(!qte || qte<=0){
+alert("Quantité invalide");
+return;
+}
+
+let index=
+stock.findIndex(x =>
+x.article===article &&
+x.taille===taille);
+
+if(index>=0){
+
+stock[index].entree+=qte;
+
+}else{
+
+stock.push({
+article:article,
+taille:taille,
+entree:qte,
+sortie:0
+});
+
+}
+
+historique.unshift({
+
+date:new Date().toLocaleString(),
+
+type:"ENTREE",
+
+article:article,
+
+taille:taille,
+
+qte:qte,
+
+responsable:responsable,
+
+motif:"-"
+
+});
+
+sauvegarder();
+afficher();
+
+}
+
+function sortieStock(){
+
+let selection=
+document.getElementById("sortieArticle").value;
+
+let index=
+stock.findIndex(x =>
+x.article+"|"+x.taille===selection);
+
+if(index<0) return;
+
+let qte=
+parseInt(document.getElementById("sortieQte").value);
+
+let responsable=
+document.getElementById("sortieResp").value;
+
+let motif=
+document.getElementById("motif").value;
+
+let disponible=
+stock[index].entree-stock[index].sortie;
+
+if(qte>disponible){
+
+alert("Stock insuffisant");
+return;
+
+}
+
+stock[index].sortie+=qte;
+
+historique.unshift({
+
+date:new Date().toLocaleString(),
+
+type:"SORTIE",
+
+article:stock[index].article,
+
+taille:stock[index].taille,
+
+qte:qte,
+
+responsable:responsable,
+
+motif:motif
+
+});
+
+sauvegarder();
+afficher();
+
+}
+
+function afficher(){
+
+let html="";
+let options="";
+
+stock.forEach(item=>{
+
+let restant=
+item.entree-item.sortie;
+
+html+=`
+
+<tr class="${restant<5 ? "stocklow" : ""}">
+<td>${item.article}</td>
+<td>${item.taille}</td>
+<td>${item.entree}</td>
+<td>${item.sortie}</td>
+<td>${restant}</td>
+</tr>
+
+`;
+
+options+=`
+
+<option value="${item.article}|${item.taille}">
+${item.article} (${item.taille})
+</option>
+
+`;
+
+});
+
+document.getElementById("tableStock").innerHTML=html;
+document.getElementById("sortieArticle").innerHTML=options;
+
+let h="";
+
+historique.forEach(item=>{
+
+h+=`
+
+<tr>
+<td>${item.date}</td>
+<td>${item.type}</td>
+<td>${item.article}</td>
+<td>${item.taille}</td>
+<td>${item.qte}</td>
+<td>${item.responsable}</td>
+<td>${item.motif}</td>
+</tr>
+
+`;
+
+});
+
+document.getElementById("historique").innerHTML=h;
+
+}
+
+afficher();
+afficherTaille();
+
+</script>
+
+</body>
+</html>
